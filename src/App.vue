@@ -6,7 +6,8 @@
   <ModalMenu />
   <ModalAuth />
   <ModalChat />
-  <ModalCard/>
+  <ModalCard />
+  <AdminBar v-if="authStore.isStaff && !modalStore.modals.addCard" />
   <ILoader />
   <INotification />
 </template>
@@ -20,9 +21,11 @@ import { useAuthStore } from './stores/auth'
 import INotification from './components/INotification/INotification.vue'
 import ModalChat from './components/ModalChat/ModalChat.vue'
 import ModalCard from './components/ModalCard/ModalCard.vue'
+import AdminBar from './components/AdminBar/AdminBar.vue'
+import { useModalStore } from './stores/modal'
 
 const authStore = useAuthStore()
+const modalStore = useModalStore()
 
 authStore.initAuthListener()
-
 </script>

@@ -1,30 +1,37 @@
 <template>
-  <svg
-    class="bell-icon"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    :width="width"
-    :height="height"
-    fill="currentColor"
-  >
-    <path
-      d="M12 2a7 7 0 00-7 7v5H4a1 1 0 000 2h16a1 1 0 100-2h-1V9a7 7 0 00-7-7zm0 20a2 2 0 002-2H10a2 2 0 002 2z"
-    />
-  </svg>
+  <Mail
+    v-bind="$attrs"
+    :size="iconSize"
+    :color="color ?? 'currentColor'"
+    :stroke-width="strokeWidth ?? 2"
+    class="mail-icon"
+  />
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { Mail } from 'lucide-vue-next'
+
 const props = defineProps<{
-  width?: number | string
-  height?: number | string
+  size?: number | string
+  color?: string
+  strokeWidth?: number
 }>()
 
-const width = props.width ?? 24
-const height = props.height ?? 24
+const iconSize = computed(() => Number(props.size ?? 24))
 </script>
 
 <style scoped>
-.bell-icon {
-  color: var(--color-white);
+.mail-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.mail-icon:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 </style>

@@ -1,21 +1,40 @@
 <template>
-  <svg
-    :width="width"
-    :height="height"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-  </svg>
+  <X
+    v-bind="$attrs"
+    :size="iconSize"
+    :color="color ?? 'currentColor'"
+    :stroke-width="strokeWidth ?? 2"
+    class="icon-x"
+  />
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { X } from 'lucide-vue-next'
+
 const props = defineProps<{
-  width?: number | string
-  height?: number | string
+  size?: number | string
+  color?: string
+  strokeWidth?: number
 }>()
 
-const width = props.width ?? 25
-const height = props.height ?? 25
+const iconSize = computed(() => Number(props.size ?? 25))
 </script>
+
+<style scoped>
+.icon-x {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-x:hover {
+  transform: rotate(90deg);
+  opacity: 0.7;
+}
+
+.icon-x:active {
+  transform: scale(0.9);
+}
+</style>

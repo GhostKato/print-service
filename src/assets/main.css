@@ -38,7 +38,8 @@ body {
   overflow-x: hidden;
 }
 html {
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 body::-webkit-scrollbar {
   width: 8px;

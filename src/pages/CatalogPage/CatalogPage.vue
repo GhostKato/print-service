@@ -1,25 +1,11 @@
 <template>
   <IBackground>
     <div class="container">
-      <div class="main-hello" :style="{ opacity: visibilityMainHello ? 1 : 0 }">
-
-
-        <IButton
-          v-if="authStore.isStaff"
-          @click="modalStore.open('card')"
-          variant="release-clear-all-btn"
-          class="add-btn"
-        >
-          + Додати нову картку
-        </IButton>
-      </div>
-
+      <div class="main-hello" :style="{ opacity: visibilityMainHello ? 1 : 0 }"></div>
 
       <div class="content-section">
-
         <template v-if="contentStore.cards.length > 0">
-
-           <CardList />
+          <CardList />
         </template>
 
         <div v-else class="empty-state">
@@ -32,21 +18,15 @@
 
 <script setup lang="ts">
 import IBackground from '@/components/IBackground/IBackground.vue'
-import IButton from '@/components/IButton/IButton.vue'
 import CardList from './components/CardList.vue'
 import { ref, onMounted } from 'vue'
-import { useAuthStore } from '@/stores/auth'
-import { useContentStore } from '@/stores/content'
-import { useModalStore } from '@/stores/modal'
+import { useCardStore } from '@/stores/card'
 
-const authStore = useAuthStore()
-const contentStore = useContentStore()
-const modalStore = useModalStore()
+const contentStore = useCardStore()
 
 const visibilityMainHello = ref(false)
 
 onMounted(() => {
-
   contentStore.initCardsListener()
 
   setTimeout(() => {
@@ -75,7 +55,7 @@ onMounted(() => {
   font-size: 25px;
   font-weight: bold;
   color: white;
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .add-btn {

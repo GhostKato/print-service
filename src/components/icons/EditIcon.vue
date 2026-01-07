@@ -1,16 +1,16 @@
 <template>
-  <ArrowLeft
+  <Pencil
     v-bind="$attrs"
     :size="iconSize"
     :color="color ?? 'currentColor'"
     :stroke-width="strokeWidth ?? 2"
-    class="arrow-icon"
+    class="edit-icon"
   />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ArrowLeft } from 'lucide-vue-next'
+import { Pencil } from 'lucide-vue-next'
 
 const props = defineProps<{
   size?: number | string
@@ -22,15 +22,16 @@ const iconSize = computed(() => Number(props.size ?? 24))
 </script>
 
 <style scoped>
-.arrow-icon {
+.edit-icon {
   display: inline-block;
   vertical-align: middle;
   flex-shrink: 0;
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.arrow-icon:hover {
-  transform: translateX(-3px);
+.edit-icon:hover {
   cursor: pointer;
+  transform: rotate(-15deg) scale(1.1);
+  color: #3b82f6;
 }
 </style>

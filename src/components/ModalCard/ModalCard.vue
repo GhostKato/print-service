@@ -1,92 +1,138 @@
 <template>
+  <div
+    v-if="modalStore.modals.addCard || modalStore.modals.editCard || modalStore.modals.detailsCard"
+    class="modal-overlay"
+    @click.self="handleClose"
+  >
+    <div class="modal-container" :class="{ 'details-mode': isDetails }">
+      <h2 class="main-title">{{ modalTitle }}</h2>
 
-    <div
-      v-if="modalStore.modals.card"
-      class="modal-chat-wrapper"
-      @click.self="modalStore.close('card')"
-    >
-      <div class="chat-list">
-        <div class="chat-container">
-          <h2 class="main-title">Додати нову візитку</h2>
+      <IButton class="close-btn" @click="handleClose" variant="close">
+        <XIcon />
+      </IButton>
 
-          <IButton class="close-btn" @click="modalStore.close('card')" variant="close">
-            <XIcon />
-          </IButton>
-
-          <div class="chat-scroll">
-            <form @submit.prevent="handleCardSubmit" class="content-form">
-              <div class="input-group">
-                <input v-model="cardData.title" type="text" placeholder="Назва візитки" required />
-              </div>
-
-              <div class="input-group">
-                <textarea v-model="cardData.description" placeholder="Опис послуги"></textarea>
-              </div>
-
-              <div class="input-group">
-                <input v-model.number="cardData.price" type="number" placeholder="Ціна (грн)" required />
-              </div>
-
-              <div class="file-upload">
-                <label for="card-image">Фото візитки:</label>
-                <div class="custom-file-input">
-                  <input id="card-image" type="file" @change="onFileSelected" accept="image/*" />
-                  <span v-if="imageFile">{{ imageFile.name }}</span>
-                  <span v-else>Оберіть файл...</span>
-                </div>
-              </div>
-
-              <IButton
-                type="submit"
-                variant="release-clear-all-btn"
-                :disabled="isLoading || !imageFile"
-              >
-                {{ isLoading ? 'Завантаження...' : 'Зберегти картку' }}
-              </IButton>
-            </form>
+      <div class="modal-content">
+        <div v-if="isDetails" class="details-view">
+          <img :src="currentData?.imageUrl" :alt="currentData?.title" class="details-img" />
+          <div class="details-info">
+            <p class="details-price">{{ currentData?.price }} грн</p>
+            <p class="details-desc">{{ currentData?.description || 'Немає опису' }}</p>
           </div>
         </div>
+
+        <form v-else @submit.prevent="handleSubmit" class="content-form">
+          <div class="input-group">
+            <input v-model="formData.title" type="text" placeholder="Назва візитки" required />
+          </div>
+
+          <div class="input-group">
+            <textarea v-model="formData.description" placeholder="Опис послуги"></textarea>
+          </div>
+
+          <div class="input-group">
+            <input
+              v-model.number="formData.price"
+              type="number"
+              placeholder="Ціна (грн)"
+              required
+            />
+          </div>
+
+          <div class="file-upload">
+            <label for="card-image">{{
+              isEdit ? 'Змінити фото (необов’язково):' : 'Фото візитки:'
+            }}</label>
+            <div class="custom-file-input">
+              <input id="card-image" type="file" @change="onFileSelected" accept="image/*" />
+              <span v-if="imageFile">{{ imageFile.name }}</span>
+              <span v-else-if="isEdit">Поточне зображення збережено</span>
+              <span v-else>Оберіть файл...</span>
+            </div>
+          </div>
+
+          <IButton
+            type="submit"
+            variant="release-clear-all-btn"
+            :disabled="isLoading || (!imageFile && !isEdit)"
+          >
+            {{ isLoading ? 'Завантаження...' : isEdit ? 'Оновити дані' : 'Зберегти картку' }}
+          </IButton>
+        </form>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { useModalStore } from '@/stores/modal'
-import { useContentStore } from '@/stores/content'
+import { useCardStore } from '@/stores/card'
 import IButton from '../IButton/IButton.vue'
 import XIcon from '../icons/XIcon.vue'
 
 const modalStore = useModalStore()
-const contentStore = useContentStore()
+const cardStore = useCardStore()
 
 const isLoading = ref(false)
 const imageFile = ref<File | null>(null)
 
-const cardData = reactive({
+const isDetails = computed(() => modalStore.modals.detailsCard)
+const isEdit = computed(() => modalStore.modals.editCard)
+const currentData = computed(() => modalStore.modalData)
+
+const modalTitle = computed(() => {
+  if (isDetails.value) return currentData.value?.title
+  if (isEdit.value) return 'Редагувати візитку'
+  return 'Додати нову візитку'
+})
+
+const formData = reactive({
   title: '',
   description: '',
-  price: 0
+  price: 0,
 })
+
+watch(
+  currentData,
+  (newData) => {
+    if (newData && isEdit.value) {
+      formData.title = newData.title
+      formData.description = newData.description
+      formData.price = newData.price
+    } else if (!isEdit.value) {
+      formData.title = ''
+      formData.description = ''
+      formData.price = 0
+    }
+  },
+  { immediate: true },
+)
 
 const onFileSelected = (event: any) => {
   const file = event.target.files[0]
   if (file) imageFile.value = file
 }
 
-const handleCardSubmit = async () => {
-  if (!imageFile.value) return
+const handleClose = () => {
+  modalStore.closeAll()
+  imageFile.value = null
+}
+
+const handleSubmit = async () => {
   isLoading.value = true
   try {
-    await contentStore.addCard(cardData.title, cardData.description, cardData.price, imageFile.value)
-
-
-    cardData.title = ''
-    cardData.description = ''
-    cardData.price = 0
-    imageFile.value = null
-    modalStore.close('card')
+    if (isEdit.value && currentData.value) {
+      await cardStore.editCard(
+        currentData.value.id,
+        { ...formData },
+        imageFile.value || undefined,
+        currentData.value.imageUrl,
+      )
+    } else {
+      if (!imageFile.value) return
+      await cardStore.addCard(formData.title, formData.description, formData.price, imageFile.value)
+    }
+    handleClose()
   } catch (error) {
     console.error(error)
   } finally {
@@ -96,109 +142,81 @@ const handleCardSubmit = async () => {
 </script>
 
 <style scoped>
-
-.modal-chat-wrapper {
+.modal-overlay {
   position: fixed;
   inset: 0;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
- justify-content: center;
+  justify-content: center;
   align-items: center;
   z-index: 150;
+  backdrop-filter: blur(5px);
 }
-
-.chat-list {
-  pointer-events: all;
-}
-
-.chat-container {
-  display: flex;
-  flex-direction: column;
+.modal-container {
   background-color: var(--color-transparent-black);
   backdrop-filter: blur(14px) saturate(160%);
-  padding: 15px;
-  border-radius: 8px;
+  padding: 20px;
+  border-radius: 12px;
   border: 1px solid var(--color-grey);
-  width: 355px;
+  width: 100%;
+  max-width: 400px;
   position: relative;
 }
-
-.main-title {
-  margin: 0 0 15px 0;
-  font-size: 20px;
-  text-shadow: 0 0 15px var(--color-shadow-black);
+.details-mode {
+  max-width: 500px;
 }
-
+.details-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.details-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+.details-desc {
+  line-height: 1.5;
+  color: #ccc;
+}
+.main-title {
+  margin: 0 0 20px 0;
+  font-size: 22px;
+  color: white;
+}
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
 }
-
-.chat-scroll {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  overflow-y: auto;
-  max-height: 80vh;
-}
-
-
 .content-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-
-input, textarea {
+input,
+textarea {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--color-grey);
   border-radius: 6px;
-  padding: 10px;
+  padding: 12px;
   color: white;
-  outline: none;
 }
-
-input:focus, textarea:focus {
-  border-color: var(--color-hover);
-}
-
-textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.file-upload {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 14px;
-  color: #aaa;
-}
-
-.custom-file-input {
+.file-upload .custom-file-input {
   border: 1px dashed var(--color-grey);
-  padding: 10px;
+  padding: 15px;
   border-radius: 6px;
   text-align: center;
   position: relative;
-  cursor: pointer;
 }
-
 .custom-file-input input {
   position: absolute;
   inset: 0;
   opacity: 0;
   cursor: pointer;
-}
-
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-.slide-right-enter-from,
-.slide-right-leave-to {
-  transform: translateX(100%);
-  opacity: 0;
 }
 </style>
