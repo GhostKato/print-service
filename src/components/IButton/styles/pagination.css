@@ -1,0 +1,22 @@
+.pagination-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-dark-grey);
+  cursor: pointer;
+}
+
+.pagination-btn:not(:disabled):hover {
+  background-color: var(--color-hover);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (min-width: 1024px) {
+  .pagination-btn {
+    font-size: 20px;
+  }
+}

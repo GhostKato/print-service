@@ -1,0 +1,55 @@
+{
+  "header": {
+    "catalog": "Каталог"    
+  },
+  "home_page": {
+    "title": "Ваш особистий кіновсесвіт!"
+  }, 
+  "pagination": {
+    "previous": "Попередня",
+    "next": "Наступна"
+  },
+  "card_list": {
+    "not_found": "Нічого не знайдено!"   
+  },
+  "modal_menu": {
+    "title_welcome": "Ласкаво просимо",
+    "displayName": "Гість",
+    "edit": "Редагувати профіль",
+    "login": "Увійти",
+    "logout": "Вийти",
+    "title_language_selection": "Вибір мови"
+  },
+  "modal_auth": {
+    "nav_btn_login": "Логінізація",
+    "nav_btn_register": "Реєстрація"
+  },
+  "modal_edit": {
+    "title": "Редагувати дані користувача"
+  },
+  "modal_chat": {
+    "title": "Медіа які вийшли:",
+    "clear_all": "Очистити все"
+  },
+  "form": {
+    "label_nickname": "Псевдонім",
+    "label_email": "Пошта",
+    "label_password": "Пароль",
+    "label_current_password": "Поточний пароль",
+    "btn_register": "Зареєструватися",
+    "btn_login": "Увійти",
+    "btn_edit": "Редагувати"
+  }, 
+  "notification_message": {   
+    "register_success": "Реєстрація та вхід пройшли успішно!",
+    "register_error": "Помилка реєстрації!",
+    "login_success": "Вхід виконано успішно!",
+    "login_error": "Помилка при вході!",
+    "logout_success": "Вихід виконано успішно!",
+    "logout_error": "Сталась помилка при виході!",
+    "updated_profile_success": "Дані користувача успішно оновлено!",
+    "updated_profile_user_info": "Зміни будь якого поля треба підтрердити текущим паролем! При зміни пошти треба вказувати реальну пошту, так як на неї прийде лист для підтрерждення змін!",
+    "updated_profile_guest_info": "Для зміни даних профілю треба зайти до аккаунту!",
+    "updated_profile_error": "Помилка оновлення даних користувача!"
+  }
+}

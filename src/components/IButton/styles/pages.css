@@ -1,0 +1,38 @@
+.tab-btn {
+  padding: 4px 3px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-dark-grey);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.share-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+@media (min-width: 768px) {
+  .tab-btn {
+    padding: 5px;
+  }
+
+  .share-btn {
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: 1920px) {
+  .tab-btn {
+    padding: none;
+    height: 33px;
+    width: 210px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .tab-btn {
+    height: 43px;
+  }
+}

@@ -1,35 +1,77 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-orange: #b47022ff;
+  --color-green: #008000;
+  --color-red: #9f1b19;
+  --color-blue: #15489bff;
+  --color-purple: #7e57c2;
+  --color-light-grey: #ccc;
+  --color-grey: #444;
+  --color-dark-grey: #1a1a1a;
+  --color-hover: #ff3d00;
+  --color-transparent-black: rgba(0, 0, 0, 0.5);
+  --color-transparent-grey: rgba(53, 50, 50, 0.5);
+  --color-shadow-black: rgba(0, 0, 0, 0.7);
+  --color-shadow-green: rgba(60, 255, 120, 0.4);
+  --color-shadow-red: rgba(255, 60, 60, 0.4);
+  --color-shadow-blue: rgba(77, 163, 255, 0.4);
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 16px;
+  color: var(--color-white);
+  background-color: var(--color-black);
+}
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+html {
+  overflow: hidden;
+}
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-track {
+  background: var(--color-dark-grey);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--color-black);
+  border-radius: 8px;
+  border: 1px solid var(--color-dark-grey);
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-grey);
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-grey) var(--color-dark-grey);
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+input:-webkit-autofill {
+  background-color: var(--color-black) !important;
+  -webkit-text-fill-color: var(--color-white) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+input:-moz-autofill {
+  background-color: var(--color-black) !important;
+  color: var(--color-white) !important;
 }

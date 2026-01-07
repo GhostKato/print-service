@@ -1,0 +1,21 @@
+.auth-nav-btn {
+  flex: 1;
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--color-transparent-gray);
+}
+
+.form-submit-btn {
+  height: 40px;
+  width: 160px;
+  border: none;
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .form-submit-btn {
+    width: 210px;
+  }
+}

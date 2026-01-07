@@ -1,0 +1,55 @@
+{
+  "header": {
+    "catalog": "Каталог"    
+  },
+  "home_page": {
+    "title": "Ваша персональная киновселенная!"
+  }, 
+  "pagination": {
+    "previous": "Предыдущяя",
+    "next": "Следующяя"
+  },
+  "card_list": {
+    "not_found": "Ничего не найдено!"    
+  },
+  "modal_menu": {
+    "title_welcome": "Добро пожаловать",
+    "displayName": "Гость",
+    "edit": "Изменить профиль",
+    "login": "Войти",
+    "logout": "Выйти",
+    "title_language_selection": "Выбор языка"
+  },
+  "modal_auth": {
+    "nav_btn_login": "Логизация",
+    "nav_btn_register": "Регистрация"
+  },
+  "modal_edit": {
+    "title": "Редактирование данных пользователя"
+  },
+  "modal_chat": {
+    "title": "Вышедшие медиа:",
+    "clear_all": "Очистить все"
+  },
+  "form": {
+    "label_nickname": "Прозвище",
+    "label_email": "Почта",
+    "label_password": "Пароль",
+    "label_current_password": "Текущий пароль",
+    "btn_register": "Зарегистрироваться",
+    "btn_login": "Войти",
+    "btn_edit": "Редактировать"
+  }, 
+  "notification_message": { 
+    "register_success": "Регистрация и вход прошли успешно!",
+    "register_error": "Ошибка регистрации!",
+    "login_success": "Вход выполнен успешно!",
+    "login_error": "Ошибка при входе!",
+    "logout_success": "Выход выполнен успешно!",
+    "logout_error": "Ошибка при выходе!",
+    "updated_profile_success": "Данные пользователя были успешно обновлены!",
+    "updated_profile_user_info": "Изменения в любом поле должны быть подтверждены действующим паролем! При изменении почты, вы должны указать настоящую почту, так как письмо будет отправлено для подтверждения изменений!",
+    "updated_profile_guest_info": "Чтобы изменить данные профиля, вам нужно ввойти в свой аккаунт!",
+    "updated_profile_error": "Ошибка обновления данных пользователя!"
+  }
+}

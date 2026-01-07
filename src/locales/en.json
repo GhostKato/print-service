@@ -1,0 +1,57 @@
+{
+  "header": {
+    "catalog": "Catalog",
+    "series": "Series",
+    "collection": "Collection"
+  },
+  "home_page": {
+    "title": "Your personal movie universe!"
+  },  
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "card_list": {
+    "not_found": "Nothing found!"   
+  },
+  "modal_menu": {
+    "title_welcome": "Welcome",
+    "displayName": "Guest",
+    "edit": "Edit profile",
+    "login": "Log in",
+    "logout": "Log out",
+    "title_language_selection": "Language selection"
+  },
+  "modal_auth": {
+    "nav_btn_login": "Loginization",
+    "nav_btn_register": "Registration"
+  },
+  "modal_edit": {
+    "title": "Edit user data"
+  },
+  "modal_chat": {
+    "title": "Media that were released:",
+    "clear_all": "Clear all"
+  },
+  "form": {
+    "label_nickname": "Nickname",
+    "label_email": "Email",
+    "label_password": "Password",
+    "label_current_password": "Current password",
+    "btn_register": "Register",
+    "btn_login": "Log in",
+    "btn_edit": "Edit"
+  }, 
+  "notification_message": {   
+    "register_success": "Registration and entry was successful!",
+    "register_error": "Error registering!",
+    "login_success": "Entrance is successful!",
+    "login_error": "An error occurred upon login!",
+    "logout_success": "The exit was completed successfully!",
+    "logout_error": "There was an error when exiting!",
+    "updated_profile_success": "User data has been successfully updated!",
+    "updated_profile_user_info": "Changes to any field must be supported by a current password! When changing the mail, you must specify the real mail, as a letter will be sent to support the changes!",
+    "updated_profile_guest_info": "To change your profile data, you need to go to your account!",
+    "updated_profile_error": "An error occurred while updating user data!"
+  }
+}
